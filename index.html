@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carocell</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            min-height: 100vh;
+            overflow: hidden;
+            background-color: #252525;
+            display: grid;
+            place-items: center;
+        }
+    </style>
+
+    <style>
+        .c-item {
+            --bg: black;
+            min-width: 100vw;
+            background: var(--bg);
+            height: 100%;
+            scroll-snap-align: center;
+        }
+
+        #container,
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="container"
+        style="width: 100%; overflow-x: scroll;scroll-snap-type: both mandatory; scroll-behavior: smooth;height: 272px;position: relative;display:flex;">
+
+        <button class="pre-btn" style="position: fixed; top: 45%;  left: 5vw; padding: .7rem;">&#10094;</button>
+
+        <div class="c-item" style="--bg: blue;"></div>
+        <div class="c-item" style="--bg: purple;"></div>
+        <div class="c-item" style="--bg: orange;"></div>
+        <div class="c-item" style="--bg: yellow;"></div>
+        <div class="c-item" style="--bg: green;"></div>
+
+        <button class="nxt-btn" style="position: fixed; top: 45%; left: 90vw; padding: .7rem;">&#10095;</button>
+    </div>
+    </div>
+
+    <script>
+        let c = document.getElementById('container')
+        document.querySelector('.pre-btn').onclick = () => { c.scrollBy(document.querySelector('.c-item').offsetWidth * -1, 0) }
+        document.querySelector('.nxt-btn').onclick = () => { c.scrollBy(document.querySelector('.c-item').offsetWidth, 0) }
+
+        let i = 0
+        let items = document.querySelectorAll('.c-item').length - 1
+        setInterval(() => {
+            if (items <= i) {
+                c.scrollTo({ left: 0 })
+                i = 0
+            } else {
+                document.querySelector('.nxt-btn').click()
+                i++
+            }
+        }, 2000)
+    </script>
+</body>
+
+</html>
